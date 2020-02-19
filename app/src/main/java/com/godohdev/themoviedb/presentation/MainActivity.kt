@@ -1,7 +1,8 @@
-package com.godohdev.themoviedb
+package com.godohdev.themoviedb.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.godohdev.themoviedb.R
 
 class MainActivity : AppCompatActivity() {
 
