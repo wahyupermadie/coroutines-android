@@ -24,7 +24,7 @@ object Versions {
 
     const val gson = "2.8.5"
     const val okHttp = "3.12.1"
-    const val retrofit = "2.6.1"
+    const val retrofit = "2.7.1"
     const val rxKotlin = "2.4.0"
     const val anko = "0.10.8"
     const val material = "1.0.0"

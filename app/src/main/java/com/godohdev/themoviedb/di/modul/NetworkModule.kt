@@ -3,15 +3,14 @@ package com.godohdev.themoviedb.di.modul
 import android.util.Log
 import com.godohdev.themoviedb.BuildConfig
 import com.godohdev.themoviedb.data.network.NetworkService
-import com.google.gson.Gson
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
-import okhttp3.Dispatcher
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -26,7 +25,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun gson(): Gson = Gson()
+    fun moshi() : Moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
     @Provides
     @Singleton
@@ -44,11 +43,11 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRestClient(okHttpClient: OkHttpClient) : Retrofit {
+    fun provideRestClient(okHttpClient: OkHttpClient, moshi: Moshi) : Retrofit {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
 
