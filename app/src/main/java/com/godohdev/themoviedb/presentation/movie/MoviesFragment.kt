@@ -38,7 +38,39 @@ class MoviesFragment : BaseFragment<MovieViewModel>(){
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        setupObseveData()
+        val fragmentType = arguments?.get(FRAGMENT_TYPE) as String
+        fetchMovies(fragmentType)
+    }
+
+    private fun setupObseveData() {
+
+    }
+
     override fun getViewModel(): MovieViewModel = viewModel
+
+    private fun fetchMovies(fragmentType: String){
+        when(fragmentType){
+            MoviesFragmentType.POPULAR.value -> {
+
+            }
+            MoviesFragmentType.NOW_PLAYING.value -> {
+
+            }
+            MoviesFragmentType.TOP_RATED.value -> {
+
+            }
+            MoviesFragmentType.FAVORITE.value -> {
+
+            }
+            else -> {
+
+            }
+        }
+    }
 
 }
 
