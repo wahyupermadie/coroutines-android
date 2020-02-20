@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">The Movie Db</string>
+
+    <string name="lbl_top_rated">Top Rated</string>
+    <string name="lbl_favorite">Favorite</string>
+    <string name="Lbl_current_playing">Now Playing</string>
+    <string name="lbl_popular">Popular</string>
 </resources>
