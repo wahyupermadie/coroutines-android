@@ -2,7 +2,6 @@ package com.godohdev.themoviedb.di.modul
 
 import android.app.Application
 import android.content.Context
-import com.godohdev.themoviedb.utils.AppCoroutineContextProvider
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -16,10 +15,6 @@ import javax.inject.Singleton
 
 @Module
 class AppModule {
-
-    @Provides
-    @Singleton
-    fun provideAppCouroutineContextProvider() : AppCoroutineContextProvider = AppCoroutineContextProvider()
 
     @Provides
     @Singleton

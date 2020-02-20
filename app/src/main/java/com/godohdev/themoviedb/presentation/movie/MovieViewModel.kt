@@ -1,5 +1,6 @@
 package com.godohdev.themoviedb.presentation.movie
 
+import com.godohdev.themoviedb.data.usecase.MovieUseCase
 import com.godohdev.themoviedb.presentation.base.BaseViewModel
 
 /**
@@ -9,6 +10,8 @@ import com.godohdev.themoviedb.presentation.base.BaseViewModel
  *
  **/
 
-class MovieViewModel() : BaseViewModel(){
+class MovieViewModel(
+    private val movieUseCase: MovieUseCase
+) : BaseViewModel(){
 
 }

@@ -1,13 +1,14 @@
 package com.godohdev.themoviedb.di.modul
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import com.godohdev.themoviedb.data.usecase.MovieUseCaseImpl
 import com.godohdev.themoviedb.di.viewmodel.ViewModelFactory
 import com.godohdev.themoviedb.di.viewmodel.ViewModelKey
 import com.godohdev.themoviedb.presentation.movie.MovieViewModel
-import dagger.Binds
 import dagger.Module
+import dagger.Provides
 import dagger.multibindings.IntoMap
+import javax.inject.Provider
 
 /**
  *
@@ -17,12 +18,18 @@ import dagger.multibindings.IntoMap
  **/
 
 @Module
-abstract class ViewModelModule {
-    @Binds
-    internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
+class ViewModelModule {
+    @Provides
+    fun viewModelFactory(providerMap: MutableMap<Class<out ViewModel>, Provider<ViewModel>>): ViewModelFactory {
+        return ViewModelFactory(providerMap)
+    }
 
-    @Binds
     @IntoMap
     @ViewModelKey(MovieViewModel::class)
-    abstract fun provideMoviesViewModel(moviesViewModel: MovieViewModel) : ViewModel
+    @Provides
+    fun provideMovieViewModel(
+        movieUseCaseImpl: MovieUseCaseImpl
+    ) : ViewModel = MovieViewModel(
+        movieUseCaseImpl
+    )
 }

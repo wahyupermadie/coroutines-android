@@ -2,8 +2,13 @@ package com.godohdev.themoviedb.di.modul
 
 import android.content.Context
 import androidx.room.Room
+import com.godohdev.themoviedb.data.local.LocalDataSourceImpl
 import com.godohdev.themoviedb.data.local.RoomDatabaseSetup
 import com.godohdev.themoviedb.data.local.dao.MoviesDao
+import com.godohdev.themoviedb.data.network.NetworkService
+import com.godohdev.themoviedb.data.repository.MovieRepositoryImpl
+import com.godohdev.themoviedb.data.usecase.MovieUseCaseImpl
+import com.godohdev.themoviedb.utils.AppCoroutineContextProvider
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -17,6 +22,11 @@ import javax.inject.Singleton
 
 @Module
 class DataModule {
+
+    @Provides
+    @Singleton
+    fun provideAppCouroutineContextProvider() : AppCoroutineContextProvider = AppCoroutineContextProvider()
+
     @Provides
     @Singleton
     fun provideRoomDatabase(context: Context) : RoomDatabaseSetup =
@@ -29,4 +39,32 @@ class DataModule {
     fun provideMoviesDao(roomDatabaseSetup: RoomDatabaseSetup) : MoviesDao {
         return roomDatabaseSetup.moviesDao()
     }
+
+    @Provides
+    @Singleton
+    fun provideLocalDataSource(
+        moviesDao: MoviesDao
+    ) : LocalDataSourceImpl = LocalDataSourceImpl(moviesDao)
+
+    @Provides
+    @Singleton
+    fun provideMovieRepository(
+        localDataSourceImpl: LocalDataSourceImpl,
+        appCoroutineContextProvider: AppCoroutineContextProvider,
+        networkService: NetworkService
+    ) : MovieRepositoryImpl = MovieRepositoryImpl(
+        networkService,
+        localDataSourceImpl,
+        appCoroutineContextProvider
+    )
+
+    @Provides
+    @Singleton
+    fun provideMovieUseCaseImpl(
+        localDataSourceImpl: LocalDataSourceImpl,
+        movieRepositoryImpl: MovieRepositoryImpl
+    ) : MovieUseCaseImpl = MovieUseCaseImpl(
+        movieRepositoryImpl,
+        localDataSourceImpl
+    )
 }

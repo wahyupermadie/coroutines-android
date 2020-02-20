@@ -5,10 +5,9 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.godohdev.themoviedb.utils.CoroutineContextProvider
 import com.godohdev.themoviedb.utils.Resource
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.UnknownHostException
@@ -21,15 +20,14 @@ import kotlin.coroutines.coroutineContext
  *
  **/
 
-abstract class NetworkBoundResource<ResultType, RequestType>{
+abstract class NetworkBoundResource<ResultType, RequestType>(private val coroutineScope: CoroutineContextProvider){
     private val result = MutableLiveData<Resource<ResultType>>()
-    private val supervisorJob = SupervisorJob()
 
     suspend fun build() : NetworkBoundResource<ResultType, RequestType> {
-        withContext(Dispatchers.Main) { result.value =
+        withContext(coroutineScope.uiDispatcher()) { result.value =
             Resource.loading(null)
         }
-        CoroutineScope(coroutineContext).launch(supervisorJob){
+        CoroutineScope(coroutineContext).launch(coroutineScope.bgDispatcher()){
             val dbResult = null
             if (shouldFetch(dbResult)){
                 try {

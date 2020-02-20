@@ -7,7 +7,6 @@ import com.godohdev.themoviedb.presentation.base.BaseActivity
 import com.godohdev.themoviedb.presentation.movie.MoviesFragment
 import com.godohdev.themoviedb.presentation.movie.MoviesFragmentType
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 

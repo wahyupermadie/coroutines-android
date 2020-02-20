@@ -2,9 +2,6 @@ package com.godohdev.themoviedb.presentation.base
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.godohdev.themoviedb.di.viewmodel.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection
