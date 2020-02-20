@@ -75,6 +75,7 @@ dependencies {
     implementation AndroidLibraries.roomRuntime
     kapt AndroidLibraries.roomCompiler
     implementation AndroidLibraries.roomKtx
+    testImplementation AndroidLibraries.roomtest
 
     implementation AndroidLibraries.material
 
