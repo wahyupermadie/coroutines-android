@@ -1,0 +1,1 @@
+![Android CI](https://github.com/wahyupermadie/coroutines-android/workflows/Android%20CI/badge.svg)
