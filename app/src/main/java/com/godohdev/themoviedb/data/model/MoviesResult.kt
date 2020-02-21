@@ -44,7 +44,7 @@ data class MoviesResult(
 	var popularity: Double? = null,
 
 	@Json(name="vote_average")
-	var voteAverage: Int? = null,
+	var voteAverage: Double? = null,
 
 	@PrimaryKey
 	@NonNull
@@ -57,5 +57,7 @@ data class MoviesResult(
 	@Json(name="vote_count")
 	var voteCount: Int? = null,
 
-	var isFavorite: Boolean? = false
+	var isFavorite: Boolean? = false,
+	var isTopRated: Boolean? = false,
+	var isNowPlaying: Boolean? = false
 ): Parcelable

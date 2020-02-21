@@ -13,8 +13,8 @@ import com.godohdev.themoviedb.utils.Resource
  **/
 
 interface MovieUseCase {
-    fun getFavoriteMovies() : LiveData<List<MoviesResult>>
-    suspend fun getMovies() : LiveData<Resource<MoviesResponse>>
-    suspend fun getTopRated() : LiveData<Resource<MoviesResponse>>
-    suspend fun getNowPlaying() : LiveData<Resource<MoviesResponse>>
+    suspend fun getFavoriteMovies() : LiveData<List<MoviesResult>>
+    suspend fun getMovies() : LiveData<Resource<List<MoviesResult>>>
+    suspend fun getTopRated() : LiveData<Resource<List<MoviesResult>>>
+    suspend fun getNowPlaying() : LiveData<Resource<List<MoviesResult>>>
 }

@@ -1,11 +1,19 @@
 package com.godohdev.themoviedb.presentation.movie
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
+import com.godohdev.themoviedb.data.model.MoviesResult
+import com.godohdev.themoviedb.databinding.FragmentMovieBinding
 import com.godohdev.themoviedb.presentation.base.BaseFragment
+import com.godohdev.themoviedb.utils.MoviesFragmentType
+import com.godohdev.themoviedb.utils.Resource
+import org.jetbrains.anko.support.v4.toast
 
 /**
  *
@@ -17,6 +25,8 @@ import com.godohdev.themoviedb.presentation.base.BaseFragment
 class MoviesFragment : BaseFragment<MovieViewModel>(){
 
     private lateinit var viewModel: MovieViewModel
+    private lateinit var binding: FragmentMovieBinding
+    private lateinit var movieAdapter: MovieAdapter
 
     companion object{
         const val FRAGMENT_TYPE = "fragment_type"
@@ -35,19 +45,45 @@ class MoviesFragment : BaseFragment<MovieViewModel>(){
         savedInstanceState: Bundle?
     ): View? {
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieViewModel::class.java)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        binding = FragmentMovieBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        initAdapter()
         setupObseveData()
         val fragmentType = arguments?.get(FRAGMENT_TYPE) as String
         fetchMovies(fragmentType)
     }
 
-    private fun setupObseveData() {
+    private fun initAdapter() {
+        movieAdapter = MovieAdapter {
+            toast("wkwkwkkw")
+        }
 
+        binding.rvMovie.apply {
+            this.adapter = movieAdapter
+            this.layoutManager = GridLayoutManager(context, 3)
+        }
+    }
+
+    private fun setupObseveData() {
+        viewModel.movies.observe(viewLifecycleOwner, Observer {
+            Log.d("DATA_GUE","DATA"+it)
+            it?.let {
+                if (it.status == Resource.Status.SUCCESS){
+                    it.data?.let {
+                        movieAdapter.addData(it as MutableList<MoviesResult>)
+                    }
+                }else{
+                    it.data?.let {
+                        movieAdapter.addData(it as MutableList<MoviesResult>)
+                    }
+                }
+            }
+        })
     }
 
     override fun getViewModel(): MovieViewModel = viewModel
@@ -55,13 +91,13 @@ class MoviesFragment : BaseFragment<MovieViewModel>(){
     private fun fetchMovies(fragmentType: String){
         when(fragmentType){
             MoviesFragmentType.POPULAR.value -> {
-
+                viewModel.fetchMoviesPopular()
             }
             MoviesFragmentType.NOW_PLAYING.value -> {
-
+                viewModel.fetchMoviesNowPlaying()
             }
             MoviesFragmentType.TOP_RATED.value -> {
-
+                viewModel.fetchMoviesTopRated()
             }
             MoviesFragmentType.FAVORITE.value -> {
 
@@ -72,11 +108,13 @@ class MoviesFragment : BaseFragment<MovieViewModel>(){
         }
     }
 
-}
+    override fun showLoading() {
+        super.showLoading()
+        binding.isLoading = true
+    }
 
-enum class MoviesFragmentType(val value : String){
-    POPULAR("popular"),
-    NOW_PLAYING("now_playing"),
-    TOP_RATED("top_rated"),
-    FAVORITE("favorite"),
+    override fun hideLoading() {
+        super.hideLoading()
+        binding.isLoading = false
+    }
 }

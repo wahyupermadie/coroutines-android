@@ -5,6 +5,7 @@ import com.godohdev.themoviedb.data.usecase.MovieUseCaseImpl
 import com.godohdev.themoviedb.di.viewmodel.ViewModelFactory
 import com.godohdev.themoviedb.di.viewmodel.ViewModelKey
 import com.godohdev.themoviedb.presentation.movie.MovieViewModel
+import com.godohdev.themoviedb.utils.AppCoroutineContextProvider
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
@@ -28,8 +29,10 @@ class ViewModelModule {
     @ViewModelKey(MovieViewModel::class)
     @Provides
     fun provideMovieViewModel(
-        movieUseCaseImpl: MovieUseCaseImpl
+        movieUseCaseImpl: MovieUseCaseImpl,
+        coroutineContextProvider: AppCoroutineContextProvider
     ) : ViewModel = MovieViewModel(
-        movieUseCaseImpl
+        movieUseCaseImpl,
+        coroutineContextProvider
     )
 }

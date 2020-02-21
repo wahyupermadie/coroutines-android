@@ -36,6 +36,7 @@ interface AppComponent {
     interface Builder{
         @BindsInstance
         fun provideApplication(application: Application) : Builder
+        fun provideNetworkModule(networkModule: NetworkModule) : Builder
         fun build() : AppComponent
     }
 

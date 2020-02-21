@@ -13,8 +13,8 @@ import com.godohdev.themoviedb.utils.Resource
  **/
 
 interface MovieRepository {
-    fun getPopularMovies() : LiveData<Resource<MoviesResponse>>
-    fun getTopRatedMovies() : LiveData<Resource<MoviesResponse>>
-    fun getNowPlayingMovies() : LiveData<Resource<MoviesResponse>>
-    fun getFavoriteMovies() : LiveData<Resource<List<MoviesResult>>>
+    suspend fun getPopularMovies() : LiveData<Resource<List<MoviesResult>>>
+    suspend fun getTopRatedMovies() : LiveData<Resource<List<MoviesResult>>>
+    suspend fun getNowPlayingMovies() : LiveData<Resource<List<MoviesResult>>>
+    suspend fun getFavoriteMovies() : LiveData<List<MoviesResult>>
 }

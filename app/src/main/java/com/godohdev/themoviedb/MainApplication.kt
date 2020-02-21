@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import com.godohdev.themoviedb.di.AppComponent
 import com.godohdev.themoviedb.di.DaggerAppComponent
+import com.godohdev.themoviedb.di.modul.NetworkModule
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -43,6 +44,7 @@ class MainApplication : Application(), HasAndroidInjector{
     private fun createAppComponent(): AppComponent {
         return DaggerAppComponent.builder()
             .provideApplication(this)
+            .provideNetworkModule(NetworkModule(this))
             .build()
     }
 }

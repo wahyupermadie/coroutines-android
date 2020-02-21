@@ -1,8 +1,10 @@
 package com.godohdev.themoviedb.di.modul
 
+import android.app.Application
 import android.util.Log
 import com.godohdev.themoviedb.BuildConfig
 import com.godohdev.themoviedb.data.network.NetworkService
+import com.readystatesoftware.chuck.ChuckInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -21,7 +23,9 @@ import javax.inject.Singleton
  **/
 
 @Module
-class NetworkModule {
+class NetworkModule(
+    private val context : Application
+) {
 
     @Provides
     @Singleton
@@ -38,6 +42,7 @@ class NetworkModule {
 
         return OkHttpClient.Builder()
             .addInterceptor(httpInterceptor)
+            .addInterceptor(ChuckInterceptor(context))
             .build()
     }
 

@@ -1,6 +1,8 @@
 package com.godohdev.themoviedb.data.usecase
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import com.godohdev.themoviedb.data.local.LocalDataSource
 import com.godohdev.themoviedb.data.model.MoviesResponse
 import com.godohdev.themoviedb.data.model.MoviesResult
@@ -15,22 +17,28 @@ import com.godohdev.themoviedb.utils.Resource
  **/
 
 class MovieUseCaseImpl (
-    private val movieRepository: MovieRepository,
-    private val localDataSource: LocalDataSource
+    private val movieRepository: MovieRepository
 ) : MovieUseCase {
-    override fun getFavoriteMovies(): LiveData<List<MoviesResult>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun getFavoriteMovies(): LiveData<List<MoviesResult>> {
+        return movieRepository.getFavoriteMovies()
     }
 
-    override suspend fun getMovies(): LiveData<Resource<MoviesResponse>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun getMovies(): LiveData<Resource<List<MoviesResult>>> {
+        return Transformations.map(movieRepository.getPopularMovies()){
+            Log.d("DATA_GUE","DATA Z "+it.status)
+            it
+        }
     }
 
-    override suspend fun getTopRated(): LiveData<Resource<MoviesResponse>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun getTopRated(): LiveData<Resource<List<MoviesResult>>> {
+        return Transformations.map(movieRepository.getTopRatedMovies()){
+            it
+        }
     }
 
-    override suspend fun getNowPlaying(): LiveData<Resource<MoviesResponse>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun getNowPlaying(): LiveData<Resource<List<MoviesResult>>> {
+        return Transformations.map(movieRepository.getNowPlayingMovies()){
+            it
+        }
     }
 }

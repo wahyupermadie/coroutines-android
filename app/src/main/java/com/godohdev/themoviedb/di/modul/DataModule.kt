@@ -61,10 +61,8 @@ class DataModule {
     @Provides
     @Singleton
     fun provideMovieUseCaseImpl(
-        localDataSourceImpl: LocalDataSourceImpl,
         movieRepositoryImpl: MovieRepositoryImpl
     ) : MovieUseCaseImpl = MovieUseCaseImpl(
-        movieRepositoryImpl,
-        localDataSourceImpl
+        movieRepositoryImpl
     )
 }
