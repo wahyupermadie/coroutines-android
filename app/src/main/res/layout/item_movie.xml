@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="movie"
+            type="com.godohdev.themoviedb.data.model.MoviesResult" />
+    </data>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:padding="8dp"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:scaleType="fitXY"
+            srcImage="@{String.valueOf(movie.posterPath)}"
+            android:id="@+id/ivPosterPath"
+            android:src="@drawable/moviedb"
+            android:layout_width="150dp"
+            android:layout_height="200dp"/>
+
+        <TextView
+            android:text="@{movie.title}"
+            android:id="@+id/tvMovieTitle"
+            style="@style/TextTitleStyle"
+            tools:text="Star Wars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            textDate="@{String.valueOf(movie.releaseDate)}"
+            android:id="@+id/tvReleaseDate"
+            style="@style/TextTitleStyle"
+            tools:text="25 Januari 2029"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>

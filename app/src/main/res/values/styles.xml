@@ -9,4 +9,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="BaseTextFieldFontStyle">
+        <item name="android:fontFamily">@font/roboto_light</item>
+    </style>
+
+    <style name="TextTitleStyle" parent="BaseTextFieldFontStyle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

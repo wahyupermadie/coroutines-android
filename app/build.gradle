@@ -71,6 +71,8 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.6.0"
     implementation 'com.squareup.retrofit2:converter-moshi:2.7.1'
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
+    debugImplementation 'com.readystatesoftware.chuck:library:1.1.0'
+    releaseImplementation 'com.readystatesoftware.chuck:library-no-op:1.1.0'
 
     implementation AndroidLibraries.dagger
     implementation AndroidLibraries.daggerAndroid

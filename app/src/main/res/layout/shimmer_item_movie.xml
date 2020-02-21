@@ -1,0 +1,32 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="8dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/ivPosterPath"
+        android:background="@color/colorShimmer"
+        android:src="@color/colorShimmer"
+        android:layout_width="150dp"
+        android:layout_height="200dp"/>
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:background="@color/colorShimmer"
+        android:id="@+id/tvMovieTitle"
+        style="@style/TextTitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:background="@color/colorShimmer"
+        android:id="@+id/tvReleaseDate"
+        style="@style/TextTitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
