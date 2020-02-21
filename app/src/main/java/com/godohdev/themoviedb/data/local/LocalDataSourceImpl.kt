@@ -18,15 +18,23 @@ class LocalDataSourceImpl constructor(
         return moviesDao.insertMovies(moviesResult)
     }
 
-    override fun getFavoriteMovies(): LiveData<List<MoviesResult>> {
+    override suspend fun getFavoriteMovies(): List<MoviesResult> {
         return moviesDao.getFavorite()
     }
 
-    override fun getAllMovies(): LiveData<List<MoviesResult>> {
+    override suspend fun getAllMovies(): List<MoviesResult> {
         return moviesDao.getMovies()
     }
 
-    override fun getMovieById(id: Int): LiveData<MoviesResult> {
+    override suspend fun getTopRatedMovie(): List<MoviesResult> {
+        return moviesDao.getTopRated()
+    }
+
+    override suspend fun getNowPlayingMovie(): List<MoviesResult> {
+        return moviesDao.getNowPlaying()
+    }
+
+    override suspend fun getMovieById(id: Int): LiveData<MoviesResult> {
         return moviesDao.getMoviesById(id)
     }
 

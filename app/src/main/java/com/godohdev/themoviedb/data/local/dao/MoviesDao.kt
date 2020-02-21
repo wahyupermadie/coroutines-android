@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.IGNORE
+import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
 import com.godohdev.themoviedb.data.model.MoviesResult
 
@@ -17,10 +18,10 @@ import com.godohdev.themoviedb.data.model.MoviesResult
 @Dao
 interface MoviesDao {
 
-    @Query("SELECT * FROM movie_table")
-    fun getMovies() : LiveData<List<MoviesResult>>
+    @Query("SELECT * FROM movie_table WHERE isTopRated=:topRated AND isNowPlaying=:nowPlaying ")
+    suspend fun getMovies(nowPlaying: Boolean? = false, topRated: Boolean? = false) : List<MoviesResult>
 
-    @Insert(onConflict = IGNORE)
+    @Insert(onConflict = REPLACE)
     suspend fun insertMovies(movies: MoviesResult) : Long
 
     @Query("SELECT * FROM movie_table WHERE id = :id")
@@ -30,5 +31,11 @@ interface MoviesDao {
     suspend fun setFavorite(favorite: Boolean, id : Int) : Int
 
     @Query("SELECT * FROM movie_table WHERE isFavorite = :favorite")
-    fun getFavorite(favorite: Boolean? = true) : LiveData<List<MoviesResult>>
+    suspend fun getFavorite(favorite: Boolean? = true) : List<MoviesResult>
+
+    @Query("SELECT * FROM movie_table WHERE isNowPlaying = :nowPlaying")
+    suspend fun getNowPlaying(nowPlaying: Boolean? = true) : List<MoviesResult>
+
+    @Query("SELECT * FROM movie_table WHERE isTopRated = :topRated")
+    suspend fun getTopRated(topRated: Boolean? = true) : List<MoviesResult>
 }

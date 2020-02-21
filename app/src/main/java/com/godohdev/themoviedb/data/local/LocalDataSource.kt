@@ -12,8 +12,10 @@ import com.godohdev.themoviedb.data.model.MoviesResult
 
 interface LocalDataSource {
     suspend fun saveMovie(moviesResult: MoviesResult) : Long
-    fun getFavoriteMovies() : LiveData<List<MoviesResult>>
-    fun getAllMovies() : LiveData<List<MoviesResult>>
-    fun getMovieById(id: Int) : LiveData<MoviesResult>
+    suspend fun getFavoriteMovies() : List<MoviesResult>
+    suspend fun getAllMovies() : List<MoviesResult>
+    suspend fun getTopRatedMovie() : List<MoviesResult>
+    suspend fun getNowPlayingMovie() : List<MoviesResult>
+    suspend fun getMovieById(id: Int) : LiveData<MoviesResult>
     suspend fun setFavorite(id:Int, isfavorite:Boolean) : Int
 }

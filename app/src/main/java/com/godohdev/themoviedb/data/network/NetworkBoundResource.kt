@@ -1,6 +1,7 @@
 package com.godohdev.themoviedb.data.network
 
 import android.accounts.NetworkErrorException
+import android.util.Log
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
@@ -8,8 +9,12 @@ import androidx.lifecycle.MutableLiveData
 import com.godohdev.themoviedb.utils.CoroutineContextProvider
 import com.godohdev.themoviedb.utils.Resource
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 import java.net.UnknownHostException
 import kotlin.coroutines.coroutineContext
 
@@ -20,15 +25,15 @@ import kotlin.coroutines.coroutineContext
  *
  **/
 
-abstract class NetworkBoundResource<ResultType, RequestType>(private val coroutineScope: CoroutineContextProvider){
+abstract class NetworkBoundResource<ResultType, RequestType>{
     private val result = MutableLiveData<Resource<ResultType>>()
-
+    private val supervisorJob = SupervisorJob()
     suspend fun build() : NetworkBoundResource<ResultType, RequestType> {
-        withContext(coroutineScope.uiDispatcher()) { result.value =
-            Resource.loading(null)
+        withContext(Dispatchers.Main) {
+            result.value = Resource.loading(null)
         }
-        CoroutineScope(coroutineContext).launch(coroutineScope.bgDispatcher()){
-            val dbResult = null
+        CoroutineScope(coroutineContext).launch(supervisorJob){
+            val dbResult = callFromDb()
             if (shouldFetch(dbResult)){
                 try {
                     fetchFromNetwork(dbResult)
@@ -49,15 +54,15 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val corouti
     }
 
     private suspend fun fetchFromNetwork(dbResult: ResultType?) {
-        setValue(Resource.loading(dbResult)) // Dispatch latest value quickly (UX purpose)
         createCallAsync().apply {
+            setValue(Resource.loading(dbResult))
             if (isSuccessful) {
                 body()?.let {
                     saveCallResult(processResponse(it))
                 }
-                setValue(Resource.success(null))
+                setValue(Resource.success(callFromDb()))
             } else {
-                setValue(Resource.error(this.errorBody().toString(), null))
+                setValue(Resource.error(this.errorBody().toString(), dbResult))
             }
         }
     }
@@ -76,8 +81,11 @@ abstract class NetworkBoundResource<ResultType, RequestType>(private val corouti
     protected abstract suspend fun saveCallResult(item: RequestType)
 
     @MainThread
+    protected abstract suspend fun callFromDb() : ResultType
+
+    @MainThread
     protected abstract fun shouldFetch(data: ResultType?): Boolean
 
     @MainThread
-    protected abstract suspend fun createCallAsync(): retrofit2.Response<RequestType>
+    protected abstract suspend fun createCallAsync(): Response<RequestType>
 }
