@@ -1,6 +1,9 @@
 package com.godohdev.themoviedb.presentation.base
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.godohdev.themoviedb.utils.Event
 
 /**
  *
@@ -10,5 +13,12 @@ import androidx.lifecycle.ViewModel
  **/
 
 abstract class BaseViewModel : ViewModel() {
+
+    // FOR ERROR HANDLER
+    protected val _errorHandler = MutableLiveData<Event<String>>()
+    val errorHandler: LiveData<Event<String>> get() = _errorHandler
+
+    protected val _loadingHandler = MutableLiveData<Boolean>(false)
+    val loadingHandler: LiveData<Boolean> get() = _loadingHandler
 
 }
