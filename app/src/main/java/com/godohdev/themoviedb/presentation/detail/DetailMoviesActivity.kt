@@ -1,6 +1,8 @@
 package com.godohdev.themoviedb.presentation.detail
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -44,7 +46,25 @@ class DetailMoviesActivity : BaseActivity() {
         binding.rvReview.apply {
             this.adapter = reviewAdapter
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setupObserver()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.favorite_menu, menu)
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.add_to_favorite -> {
+
+            }
+            android.R.id.home -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun setupObserver() {
