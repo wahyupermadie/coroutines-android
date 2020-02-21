@@ -1,6 +1,5 @@
 package com.godohdev.themoviedb.utils.extentions
 
-import android.provider.SyncStateContract
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter

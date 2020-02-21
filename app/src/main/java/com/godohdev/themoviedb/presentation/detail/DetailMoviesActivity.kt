@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -16,9 +15,6 @@ import com.godohdev.themoviedb.di.viewmodel.ViewModelFactory
 import com.godohdev.themoviedb.presentation.base.BaseActivity
 import com.godohdev.themoviedb.presentation.base.BaseViewModel
 import com.godohdev.themoviedb.utils.Resource
-import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 class DetailMoviesActivity : BaseActivity() {

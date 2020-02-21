@@ -15,7 +15,6 @@ import com.godohdev.themoviedb.presentation.base.BaseFragment
 import com.godohdev.themoviedb.presentation.detail.DetailMoviesActivity
 import com.godohdev.themoviedb.utils.MoviesFragmentType
 import com.godohdev.themoviedb.utils.Resource
-import org.jetbrains.anko.support.v4.toast
 
 /**
  *

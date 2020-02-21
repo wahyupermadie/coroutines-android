@@ -1,7 +1,6 @@
 package com.godohdev.themoviedb.data.repository
 
 import androidx.lifecycle.LiveData
-import com.godohdev.themoviedb.data.model.MoviesResponse
 import com.godohdev.themoviedb.data.model.MoviesResult
 import com.godohdev.themoviedb.data.model.ReviewResult
 import com.godohdev.themoviedb.utils.Resource

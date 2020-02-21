@@ -3,8 +3,6 @@ package com.godohdev.themoviedb.data.usecase
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
-import com.godohdev.themoviedb.data.local.LocalDataSource
-import com.godohdev.themoviedb.data.model.MoviesResponse
 import com.godohdev.themoviedb.data.model.MoviesResult
 import com.godohdev.themoviedb.data.model.ReviewResult
 import com.godohdev.themoviedb.data.repository.MovieRepository

@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.godohdev.themoviedb.data.model.MoviesResponse
 import com.godohdev.themoviedb.data.model.MoviesResult
 import com.godohdev.themoviedb.data.usecase.MovieUseCase
 import com.godohdev.themoviedb.presentation.base.BaseViewModel

@@ -1,15 +1,12 @@
 package com.godohdev.themoviedb.data.network
 
 import android.accounts.NetworkErrorException
-import android.util.Log
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.godohdev.themoviedb.utils.CoroutineContextProvider
 import com.godohdev.themoviedb.utils.Resource
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch

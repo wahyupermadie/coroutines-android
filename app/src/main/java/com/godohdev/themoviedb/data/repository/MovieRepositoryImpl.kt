@@ -10,7 +10,6 @@ import com.godohdev.themoviedb.data.model.MoviesResult
 import com.godohdev.themoviedb.data.model.ReviewResult
 import com.godohdev.themoviedb.data.network.NetworkBoundResource
 import com.godohdev.themoviedb.data.network.NetworkService
-import com.godohdev.themoviedb.utils.CoroutineContextProvider
 import com.godohdev.themoviedb.utils.Resource
 import com.godohdev.themoviedb.utils.isConnected
 import retrofit2.Response
