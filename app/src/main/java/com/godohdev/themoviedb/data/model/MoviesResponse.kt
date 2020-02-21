@@ -1,11 +1,8 @@
 package com.godohdev.themoviedb.data.model
 
-import android.os.Parcelable
 import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
-data class MoviesResponse(
+data class MoviesResponse<T>(
 
 	@Json(name="page")
 	val page: Int? = null,
@@ -14,8 +11,8 @@ data class MoviesResponse(
 	val totalPages: Int? = null,
 
 	@Json(name="results")
-	val results: List<MoviesResult>? = null,
+	val results: List<T>? = null,
 
 	@Json(name="total_results")
 	val totalResults: Int? = null
-) : Parcelable
+)

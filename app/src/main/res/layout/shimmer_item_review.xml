@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:layout_marginBottom="8dp"
+    android:background="#ffffff"
+    app:cardCornerRadius="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:padding="8dp"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.AppCompatTextView
+            android:background="@color/colorShimmer"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="18sp"
+            tools:text="Wahyu Permadi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvContent"
+            android:fontFamily="@font/roboto_light"
+            android:padding="8dp"
+            android:text="@{review.content}"
+            android:layout_marginTop="8dp"
+            android:maxLines="5"
+            android:scrollbars="vertical"
+            android:background="@color/colorShimmer"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.cardview.widget.CardView>

@@ -3,6 +3,7 @@ package com.godohdev.themoviedb.data.usecase
 import androidx.lifecycle.LiveData
 import com.godohdev.themoviedb.data.model.MoviesResponse
 import com.godohdev.themoviedb.data.model.MoviesResult
+import com.godohdev.themoviedb.data.model.ReviewResult
 import com.godohdev.themoviedb.utils.Resource
 
 /**
@@ -17,4 +18,5 @@ interface MovieUseCase {
     suspend fun getMovies() : LiveData<Resource<List<MoviesResult>>>
     suspend fun getTopRated() : LiveData<Resource<List<MoviesResult>>>
     suspend fun getNowPlaying() : LiveData<Resource<List<MoviesResult>>>
+    suspend fun getReviewByMovieId(id: Int) : LiveData<Resource<List<ReviewResult>>>
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.godohdev.themoviedb.R
 import com.godohdev.themoviedb.presentation.base.BaseActivity
+import com.godohdev.themoviedb.presentation.base.BaseViewModel
 import com.godohdev.themoviedb.presentation.movie.MoviesFragment
 import com.godohdev.themoviedb.utils.MoviesFragmentType
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -12,12 +13,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
 
     override fun setupLayoutId(): Int = R.layout.activity_main
+    override fun getViewModel(): BaseViewModel? = null
 
     override fun onActivityReady(savedInstanceState: Bundle?) {
 
         bnvMenuNavigation.setOnNavigationItemSelectedListener(this)
         bnvMenuNavigation.selectedItemId = R.id.menu_popular
     }
+
+    override fun isUsingViewModel(): Boolean = false
 
     override fun onNavigationItemSelected(p0: MenuItem): Boolean {
         when(p0.itemId){

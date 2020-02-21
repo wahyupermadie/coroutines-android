@@ -1,10 +1,12 @@
 package com.godohdev.themoviedb.di.modul
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.godohdev.themoviedb.data.local.LocalDataSourceImpl
 import com.godohdev.themoviedb.data.local.RoomDatabaseSetup
 import com.godohdev.themoviedb.data.local.dao.MoviesDao
+import com.godohdev.themoviedb.data.local.dao.ReviewDao
 import com.godohdev.themoviedb.data.network.NetworkService
 import com.godohdev.themoviedb.data.repository.MovieRepositoryImpl
 import com.godohdev.themoviedb.data.usecase.MovieUseCaseImpl
@@ -42,20 +44,30 @@ class DataModule {
 
     @Provides
     @Singleton
+    fun providereviewDao(roomDatabaseSetup: RoomDatabaseSetup) : ReviewDao {
+        return roomDatabaseSetup.reviewDao()
+    }
+
+    @Provides
+    @Singleton
     fun provideLocalDataSource(
-        moviesDao: MoviesDao
-    ) : LocalDataSourceImpl = LocalDataSourceImpl(moviesDao)
+        moviesDao: MoviesDao,
+        reviewDao: ReviewDao
+    ) : LocalDataSourceImpl = LocalDataSourceImpl(
+        moviesDao,
+        reviewDao
+    )
 
     @Provides
     @Singleton
     fun provideMovieRepository(
         localDataSourceImpl: LocalDataSourceImpl,
-        appCoroutineContextProvider: AppCoroutineContextProvider,
+        context: Application,
         networkService: NetworkService
     ) : MovieRepositoryImpl = MovieRepositoryImpl(
         networkService,
         localDataSourceImpl,
-        appCoroutineContextProvider
+        context
     )
 
     @Provides

@@ -21,7 +21,7 @@ interface MoviesDao {
     @Query("SELECT * FROM movie_table WHERE isTopRated=:topRated AND isNowPlaying=:nowPlaying ")
     suspend fun getMovies(nowPlaying: Boolean? = false, topRated: Boolean? = false) : List<MoviesResult>
 
-    @Insert(onConflict = REPLACE)
+    @Insert(onConflict = IGNORE)
     suspend fun insertMovies(movies: MoviesResult) : Long
 
     @Query("SELECT * FROM movie_table WHERE id = :id")

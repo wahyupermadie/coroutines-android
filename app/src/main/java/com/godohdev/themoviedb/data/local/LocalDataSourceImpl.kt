@@ -2,7 +2,9 @@ package com.godohdev.themoviedb.data.local
 
 import androidx.lifecycle.LiveData
 import com.godohdev.themoviedb.data.local.dao.MoviesDao
+import com.godohdev.themoviedb.data.local.dao.ReviewDao
 import com.godohdev.themoviedb.data.model.MoviesResult
+import com.godohdev.themoviedb.data.model.ReviewResult
 
 /**
  *
@@ -12,8 +14,17 @@ import com.godohdev.themoviedb.data.model.MoviesResult
  **/
 
 class LocalDataSourceImpl constructor(
-    private  var moviesDao: MoviesDao
+    private var moviesDao: MoviesDao,
+    private var reviewDao: ReviewDao
 ) : LocalDataSource {
+    override suspend fun saveReview(reviewResult: ReviewResult): Long {
+        return reviewDao.insertReview(reviewResult)
+    }
+
+    override suspend fun getReviewByMovieId(id: Int): List<ReviewResult> {
+        return reviewDao.getReviewByMovieId(id)
+    }
+
     override suspend fun saveMovie(moviesResult: MoviesResult): Long {
         return moviesDao.insertMovies(moviesResult)
     }

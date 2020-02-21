@@ -6,6 +6,7 @@ import androidx.lifecycle.Transformations
 import com.godohdev.themoviedb.data.local.LocalDataSource
 import com.godohdev.themoviedb.data.model.MoviesResponse
 import com.godohdev.themoviedb.data.model.MoviesResult
+import com.godohdev.themoviedb.data.model.ReviewResult
 import com.godohdev.themoviedb.data.repository.MovieRepository
 import com.godohdev.themoviedb.utils.Resource
 
@@ -38,6 +39,12 @@ class MovieUseCaseImpl (
 
     override suspend fun getNowPlaying(): LiveData<Resource<List<MoviesResult>>> {
         return Transformations.map(movieRepository.getNowPlayingMovies()){
+            it
+        }
+    }
+
+    override suspend fun getReviewByMovieId(id: Int): LiveData<Resource<List<ReviewResult>>> {
+        return Transformations.map(movieRepository.getReviewMovie(id)){
             it
         }
     }

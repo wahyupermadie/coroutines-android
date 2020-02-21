@@ -1,5 +1,6 @@
 package com.godohdev.themoviedb.presentation.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.godohdev.themoviedb.data.model.MoviesResult
 import com.godohdev.themoviedb.databinding.FragmentMovieBinding
 import com.godohdev.themoviedb.presentation.base.BaseFragment
+import com.godohdev.themoviedb.presentation.detail.DetailMoviesActivity
 import com.godohdev.themoviedb.utils.MoviesFragmentType
 import com.godohdev.themoviedb.utils.Resource
 import org.jetbrains.anko.support.v4.toast
@@ -60,7 +62,10 @@ class MoviesFragment : BaseFragment<MovieViewModel>(){
 
     private fun initAdapter() {
         movieAdapter = MovieAdapter {
-            toast("wkwkwkkw")
+            Intent(context, DetailMoviesActivity::class.java).run {
+                this.putExtra("movie", it)
+                startActivity(this)
+            }
         }
 
         binding.rvMovie.apply {

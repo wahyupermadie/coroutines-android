@@ -2,6 +2,7 @@ package com.godohdev.themoviedb.data.local
 
 import androidx.lifecycle.LiveData
 import com.godohdev.themoviedb.data.model.MoviesResult
+import com.godohdev.themoviedb.data.model.ReviewResult
 
 /**
  *
@@ -11,6 +12,8 @@ import com.godohdev.themoviedb.data.model.MoviesResult
  **/
 
 interface LocalDataSource {
+    suspend fun saveReview(reviewResult: ReviewResult) : Long
+    suspend fun getReviewByMovieId(id: Int) : List<ReviewResult>
     suspend fun saveMovie(moviesResult: MoviesResult) : Long
     suspend fun getFavoriteMovies() : List<MoviesResult>
     suspend fun getAllMovies() : List<MoviesResult>

@@ -5,4 +5,10 @@
     <string name="lbl_favorite">Favorite</string>
     <string name="Lbl_current_playing">Now Playing</string>
     <string name="lbl_popular">Popular</string>
+    <string name="lbl_title_default">Title</string>
+    <string name="lbl_release_date_default">Release Date</string>
+    <string name="lbl_overview">Overview</string>
+    <string name="lbl_review">Review</string>
+    <string name="lbl_trailers">Trailers</string>
+    <string name="lbl_empty_review">Mohon Maaf Review Untuk Film Ini Tidak Tersedia</string>
 </resources>
