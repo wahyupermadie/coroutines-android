@@ -1,6 +1,5 @@
 package com.godohdev.themoviedb.data.local
 
-import androidx.lifecycle.LiveData
 import com.godohdev.themoviedb.data.local.dao.MoviesDao
 import com.godohdev.themoviedb.data.local.dao.ReviewDao
 import com.godohdev.themoviedb.data.model.MoviesResult

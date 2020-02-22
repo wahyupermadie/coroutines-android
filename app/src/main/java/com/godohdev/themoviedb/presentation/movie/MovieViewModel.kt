@@ -1,6 +1,5 @@
 package com.godohdev.themoviedb.presentation.movie
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
