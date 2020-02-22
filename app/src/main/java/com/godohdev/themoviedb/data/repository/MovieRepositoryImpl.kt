@@ -14,13 +14,6 @@ import com.godohdev.themoviedb.utils.Resource
 import com.godohdev.themoviedb.utils.isConnected
 import retrofit2.Response
 
-/**
- *
- * Created by Wahyu Permadi on 2020-02-21.
- * Android Engineer
- *
- **/
-
 class MovieRepositoryImpl constructor(
     private val networkService: NetworkService,
     private val localDataSource: LocalDataSource,
@@ -94,9 +87,9 @@ class MovieRepositoryImpl constructor(
         }.build().asLiveData()
     }
 
-    override suspend fun getFavoriteMovies(): LiveData<List<MoviesResult>> {
-        val data = MutableLiveData<List<MoviesResult>>()
-        data.value = localDataSource.getFavoriteMovies()
+    override suspend fun getFavoriteMovies(): LiveData<Resource<List<MoviesResult>>> {
+        val data = MutableLiveData<Resource<List<MoviesResult>>>()
+        data.postValue(Resource.success(localDataSource.getFavoriteMovies()))
         return data
     }
 
@@ -121,5 +114,18 @@ class MovieRepositoryImpl constructor(
                 return localDataSource.getReviewByMovieId(id)
             }
         }.build().asLiveData()
+    }
+
+    override suspend fun getMovieId(id: Int): LiveData<MoviesResult> {
+        val data = MutableLiveData<MoviesResult>()
+        data.postValue(localDataSource.getMovieById(id))
+        return data
+    }
+
+    override suspend fun setMovieFavoriteId(isFavorite: Boolean, id: Int): LiveData<MoviesResult> {
+        localDataSource.setFavorite(id, isFavorite)
+        val data = MutableLiveData<MoviesResult>()
+        data.postValue(localDataSource.getMovieById(id))
+        return data
     }
 }

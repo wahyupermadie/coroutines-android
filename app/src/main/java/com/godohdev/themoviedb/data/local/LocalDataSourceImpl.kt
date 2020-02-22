@@ -45,7 +45,7 @@ class LocalDataSourceImpl constructor(
         return moviesDao.getNowPlaying()
     }
 
-    override suspend fun getMovieById(id: Int): LiveData<MoviesResult> {
+    override suspend fun getMovieById(id: Int): MoviesResult {
         return moviesDao.getMoviesById(id)
     }
 

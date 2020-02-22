@@ -1,9 +1,11 @@
 package com.godohdev.themoviedb.presentation.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.godohdev.themoviedb.data.model.MoviesResult
 import com.godohdev.themoviedb.data.model.ReviewResult
 import com.godohdev.themoviedb.data.usecase.MovieUseCase
 import com.godohdev.themoviedb.presentation.base.BaseViewModel
@@ -29,6 +31,11 @@ class DetailViewModel(
 
     private var reviewSource: LiveData<Resource<List<ReviewResult>>> = MutableLiveData<Resource<List<ReviewResult>>>()
 
+    private var _movie = MediatorLiveData<MoviesResult>()
+    val movie : LiveData<MoviesResult> get() = _movie
+
+    private var movieSource: LiveData<MoviesResult> = MutableLiveData<MoviesResult>()
+
     fun getMovieReview(id: Int) = viewModelScope.launch(coroutineContextProvider.uiDispatcher()){
         _reviews.removeSource(reviewSource)
         withContext(coroutineContextProvider.bgDispatcher()){
@@ -49,6 +56,28 @@ class DetailViewModel(
                     _loadingHandler.value = true
                 }
             }
+        }
+    }
+
+    fun getMovieById(id : Int) = viewModelScope.launch(coroutineContextProvider.uiDispatcher()){
+        _movie.removeSource(movieSource)
+        withContext(coroutineContextProvider.bgDispatcher()){
+            movieSource = movieUseCase.getMovieById(id)
+        }
+
+        _movie.addSource(movieSource){
+            _movie.value = it
+        }
+    }
+
+    fun updateMovieFavorite(isFavorite: Boolean, id: Int) = viewModelScope.launch(coroutineContextProvider.uiDispatcher()){
+        _movie.removeSource(movieSource)
+        withContext(coroutineContextProvider.bgDispatcher()){
+            movieSource = movieUseCase.setFavorite(isFavorite, id)
+        }
+        _movie.addSource(movieSource){
+            Log.d("DATA_GUE","DATA "+it)
+            _movie.value = it
         }
     }
 }

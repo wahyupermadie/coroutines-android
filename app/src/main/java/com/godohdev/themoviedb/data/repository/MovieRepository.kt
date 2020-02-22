@@ -16,6 +16,8 @@ interface MovieRepository {
     suspend fun getPopularMovies() : LiveData<Resource<List<MoviesResult>>>
     suspend fun getTopRatedMovies() : LiveData<Resource<List<MoviesResult>>>
     suspend fun getNowPlayingMovies() : LiveData<Resource<List<MoviesResult>>>
-    suspend fun getFavoriteMovies() : LiveData<List<MoviesResult>>
+    suspend fun getFavoriteMovies() : LiveData<Resource<List<MoviesResult>>>
     suspend fun getReviewMovie(id: Int): LiveData<Resource<List<ReviewResult>>>
+    suspend fun getMovieId(id: Int): LiveData<MoviesResult>
+    suspend fun setMovieFavoriteId(isFavorite: Boolean, id: Int): LiveData<MoviesResult>
 }

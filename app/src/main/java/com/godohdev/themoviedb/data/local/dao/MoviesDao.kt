@@ -24,7 +24,7 @@ interface MoviesDao {
     suspend fun insertMovies(movies: MoviesResult) : Long
 
     @Query("SELECT * FROM movie_table WHERE id = :id")
-    fun getMoviesById(id : Int): LiveData<MoviesResult>
+    suspend fun getMoviesById(id : Int): MoviesResult
 
     @Query("UPDATE movie_table SET isFavorite = :favorite WHERE id = :id")
     suspend fun setFavorite(favorite: Boolean, id : Int) : Int

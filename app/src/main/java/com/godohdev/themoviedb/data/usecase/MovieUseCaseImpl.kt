@@ -18,13 +18,12 @@ import com.godohdev.themoviedb.utils.Resource
 class MovieUseCaseImpl (
     private val movieRepository: MovieRepository
 ) : MovieUseCase {
-    override suspend fun getFavoriteMovies(): LiveData<List<MoviesResult>> {
+    override suspend fun getFavoriteMovies(): LiveData<Resource<List<MoviesResult>>> {
         return movieRepository.getFavoriteMovies()
     }
 
     override suspend fun getMovies(): LiveData<Resource<List<MoviesResult>>> {
         return Transformations.map(movieRepository.getPopularMovies()){
-            Log.d("DATA_GUE","DATA Z "+it.status)
             it
         }
     }
@@ -43,6 +42,18 @@ class MovieUseCaseImpl (
 
     override suspend fun getReviewByMovieId(id: Int): LiveData<Resource<List<ReviewResult>>> {
         return Transformations.map(movieRepository.getReviewMovie(id)){
+            it
+        }
+    }
+
+    override suspend fun getMovieById(id: Int): LiveData<MoviesResult> {
+        return Transformations.map(movieRepository.getMovieId(id)){
+            it
+        }
+    }
+
+    override suspend fun setFavorite(isFavorite: Boolean, id: Int): LiveData<MoviesResult> {
+        return Transformations.map(movieRepository.setMovieFavoriteId(isFavorite, id)){
             it
         }
     }

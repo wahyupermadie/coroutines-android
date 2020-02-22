@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -24,7 +25,7 @@ class DetailMoviesActivity : BaseActivity() {
     lateinit var viewModelFactory: ViewModelFactory
     lateinit var viewModel : DetailViewModel
     lateinit var reviewAdapter : ReviewAdapter
-
+    private var menuItem: Menu? = null
     override fun setupLayoutId(): Int {
         return R.layout.activity_detail_movies
     }
@@ -37,7 +38,8 @@ class DetailMoviesActivity : BaseActivity() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)[DetailViewModel::class.java]
         binding = DataBindingUtil.setContentView(this, R.layout.activity_detail_movies)
         moviesResult = intent.getParcelableExtra("movie")!!
-        binding.movies = moviesResult
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         reviewAdapter = ReviewAdapter()
         binding.rvReview.apply {
             this.adapter = reviewAdapter
@@ -46,15 +48,21 @@ class DetailMoviesActivity : BaseActivity() {
         setupObserver()
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.favorite_menu, menu)
+        menuItem = menu
         return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.add_to_favorite -> {
-
+                if(moviesResult.isFavorite == true){
+                    updateFavorite(false, moviesResult.id!!)
+                }else{
+                    updateFavorite(true, moviesResult.id!!)
+                }
+                setupIcon()
             }
             android.R.id.home -> {
                 finish()
@@ -63,6 +71,17 @@ class DetailMoviesActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun updateFavorite(isFavorite: Boolean, id: Int){
+        viewModel.updateMovieFavorite(isFavorite, id)
+    }
+
+    private fun setupIcon(){
+        if(moviesResult.isFavorite == true){
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_added_favorite)
+        }else{
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_add_favorite)
+        }
+    }
     private fun setupObserver() {
         viewModel.reviews.observe(this, Observer {
             it?.let {
@@ -82,8 +101,15 @@ class DetailMoviesActivity : BaseActivity() {
             }
         })
 
+        viewModel.movie.observe(this, Observer {
+            moviesResult = it
+            setupIcon()
+        })
+
         viewModel.getMovieReview(moviesResult.id!!)
+        viewModel.getMovieById(moviesResult.id!!)
     }
+
 
     override fun showLoading() {
         super.showLoading()

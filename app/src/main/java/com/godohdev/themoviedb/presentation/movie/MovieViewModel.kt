@@ -37,8 +37,6 @@ class MovieViewModel(
             moviesSource = movieUseCase.getMovies()
         }
         _movies.addSource(moviesSource){
-            Log.d("DATA_GUE","DATA Z "+it.data)
-            Log.d("DATA_GUE","DATA X "+moviesSource.value?.status)
             when(it.status){
                 Resource.Status.SUCCESS -> {
                     _movies.value = Resource.success(it.data)
@@ -77,7 +75,6 @@ class MovieViewModel(
                 }
             }
         }
-
     }
 
     fun fetchMoviesNowPlaying() = viewModelScope.launch(coroutineContextProvider.uiDispatcher()){
@@ -97,6 +94,22 @@ class MovieViewModel(
                 Resource.Status.ERROR -> {
                     _movies.value = Resource.error(it.error!!, it.data)
                     _errorHandler.value = Event(it.error)
+                    _loadingHandler.value = false
+                }
+            }
+        }
+    }
+
+    fun fetchFavorite() = viewModelScope.launch(coroutineContextProvider.uiDispatcher()){
+        _movies.removeSource(moviesSource)
+        _loadingHandler.value = true
+        withContext(coroutineContextProvider.bgDispatcher()){
+            moviesSource = movieUseCase.getFavoriteMovies()
+        }
+        _movies.addSource(moviesSource){
+            when(it.status){
+                Resource.Status.SUCCESS -> {
+                    _movies.value = Resource.success(it.data)
                     _loadingHandler.value = false
                 }
             }

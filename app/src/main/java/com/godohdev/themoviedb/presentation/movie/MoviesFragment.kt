@@ -75,7 +75,6 @@ class MoviesFragment : BaseFragment<MovieViewModel>(){
 
     private fun setupObseveData() {
         viewModel.movies.observe(viewLifecycleOwner, Observer {
-            Log.d("DATA_GUE","DATA"+it)
             it?.let {
                 if (it.status == Resource.Status.SUCCESS){
                     it.data?.let {
@@ -104,7 +103,7 @@ class MoviesFragment : BaseFragment<MovieViewModel>(){
                 viewModel.fetchMoviesTopRated()
             }
             MoviesFragmentType.FAVORITE.value -> {
-
+                viewModel.fetchFavorite()
             }
             else -> {
 

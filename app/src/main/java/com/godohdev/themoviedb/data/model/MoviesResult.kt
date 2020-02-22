@@ -13,49 +13,49 @@ import kotlinx.android.parcel.Parcelize
 data class MoviesResult(
 
 	@Json(name="overview")
-	var overview: String? = null,
+	var overview: String? = "",
 
 	@Json(name="original_language")
-	var originalLanguage: String? = null,
+	var originalLanguage: String? = "",
 
 	@Json(name="original_title")
-	var originalTitle: String? = null,
+	var originalTitle: String? = "",
 
 	@Json(name="video")
-	var video: Boolean? = null,
+	var video: Boolean? = false,
 
 	@Json(name="title")
-	var title: String? = null,
+	var title: String? = "",
 
 	@Ignore
 	@Json(name="genre_ids")
 	var genreIds: List<Int>? = null,
 
 	@Json(name="poster_path")
-	var posterPath: String? = null,
+	var posterPath: String? = "",
 
 	@Json(name="backdrop_path")
-	var backdropPath: String? = null,
+	var backdropPath: String? = "",
 
 	@Json(name="release_date")
-	var releaseDate: String? = null,
+	var releaseDate: String? = "",
 
 	@Json(name="popularity")
-	var popularity: Double? = null,
+	var popularity: Double? = 0.0,
 
 	@Json(name="vote_average")
-	var voteAverage: Double? = null,
+	var voteAverage: Double? = 0.0,
 
 	@PrimaryKey
 	@NonNull
 	@Json(name="id")
-	var id: Int? = null,
+	var id: Int? = 0,
 
 	@Json(name="adult")
 	var adult: Boolean? = null,
 
 	@Json(name="vote_count")
-	var voteCount: Int? = null,
+	var voteCount: Int? = 0,
 
 	var isFavorite: Boolean? = false,
 	var isTopRated: Boolean? = false,

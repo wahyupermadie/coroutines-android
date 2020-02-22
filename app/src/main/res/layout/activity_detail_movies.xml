@@ -8,7 +8,7 @@
         <variable
             name="isLoading"
             type="Boolean" />
-        <variable name="movies" type="com.godohdev.themoviedb.data.model.MoviesResult"/>
+        <variable name="viewModel" type="com.godohdev.themoviedb.presentation.detail.DetailViewModel"/>
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 app:layout_constraintHorizontal_bias="0.032"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcImage='@{String.format("%s",movies.posterPath)}'
+                app:srcImage='@{String.format("%s",viewModel.movie.posterPath)}'
                 tools:srcCompat="@tools:sample/avatars" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -50,7 +50,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:text="@{movies.originalTitle}"
+                android:text="@{viewModel.movie.originalTitle}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView2"
@@ -87,7 +87,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
-                app:textDate="@{movies.releaseDate}" />
+                android:text='@{String.format("%s",viewModel.movie.releaseDate)}' />
             <androidx.appcompat.widget.AppCompatTextView
                 android:text="@string/lbl_overview"
                 android:textStyle="bold"
@@ -104,7 +104,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 />
             <androidx.appcompat.widget.AppCompatTextView
-                android:text="@{movies.overview}"
+                android:text="@{viewModel.movie.overview}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView6"

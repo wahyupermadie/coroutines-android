@@ -19,6 +19,6 @@ interface LocalDataSource {
     suspend fun getAllMovies() : List<MoviesResult>
     suspend fun getTopRatedMovie() : List<MoviesResult>
     suspend fun getNowPlayingMovie() : List<MoviesResult>
-    suspend fun getMovieById(id: Int) : LiveData<MoviesResult>
+    suspend fun getMovieById(id: Int) : MoviesResult
     suspend fun setFavorite(id:Int, isfavorite:Boolean) : Int
 }
