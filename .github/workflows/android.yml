@@ -17,5 +17,5 @@ jobs:
       run: ./gradlew build --refresh-dependencies
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Build with Gradle
+    - name: Doing Unit Test
       run: ./gradlew test
